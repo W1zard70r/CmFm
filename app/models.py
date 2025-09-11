@@ -1,27 +1,23 @@
-from pydantic import BaseModel
-from typing import Annotated, List, Tuple
-from enum import Enum
+from sqlalchemy.orm import mapped_column, DeclarativeBase, Mapped
+from sqlalchemy import String
 
-
-class Base(BaseModel):
+class Base(DeclarativeBase):
     pass
 
-class User(Base):
-    id: Annotated[int]
-    name: Annotated[str]
-    email: Annotated[str]
+class UserModel(Base):
+    __tablename__ = "users"
 
-class Chord(Enum):
-    pass
-# тут будут все возможные аккорды с https://tuneronline.ru/chords/
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(100))
+    mail: Mapped[str | None] = mapped_column(String(100))
 
-class Song(Base):
-    id: Annotated[int]
-    name: Annotated[str]
-    words: Annotated[List[str]]
+    login: Mapped[str] = mapped_column(index=True)
+    hashed_password: Mapped[str] = mapped_column(String)
 
-    isTABS: Annotated[bool]
-    isCHORDS: Annotated[bool]
 
-    Song_Chords: Annotated[List[Tuple[Chord, int]]]
-    Song_Tabs: Annotated[List[Tuple[int]]]
+class SongModel(Base):
+    __tablename__ = "songs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(100))
+    words: Mapped[str | None] = mapped_column(String)

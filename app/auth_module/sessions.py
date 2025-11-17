@@ -6,7 +6,6 @@ from fastapi_sessions.session_verifier import SessionVerifier
 from pydantic import BaseModel
 from typing import Annotated
 
-
 class SessionData(BaseModel):
     login: str
 

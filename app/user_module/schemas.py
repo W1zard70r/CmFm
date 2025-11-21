@@ -3,16 +3,16 @@ from typing import Annotated
 
 
 class UserBase(BaseModel):
-    name: str
+    name: Annotated[str, Field(max_length=100)]
     mail: EmailStr | None
-    login: str
+    login: Annotated[str, Field(max_length=100)]
 
     class Config:
         orm_mode = True
         from_attributes = True
 
 class NewUser(UserBase):
-    password: str
+    password: Annotated[str, Field()]
     
 class User(UserBase):
     id: int

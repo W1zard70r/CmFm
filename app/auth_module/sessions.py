@@ -15,7 +15,7 @@ cookie = SessionCookie(
     identifier="general_verifier",
     secret_key="Some secret key",
     cookie_params=cookie_params,
-    auto_error=True
+    auto_error=False
 )
 
 backend = InMemoryBackend[UUID, SessionData]()
@@ -49,7 +49,7 @@ class BasicVerifier(SessionVerifier[UUID, SessionData]):
 
 verifier = BasicVerifier(
     identifier="general_verifier",
-    auto_error=True,
+    auto_error=False,
     backend=backend,
     auth_http_exception=HTTPException(status_code=403, detail="Invalid session")
 )
